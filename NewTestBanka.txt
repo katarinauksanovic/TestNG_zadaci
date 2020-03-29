@@ -1,0 +1,78 @@
+package DomaciBugReport;
+
+import java.util.ArrayList;
+
+import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
+
+import banka.Account;
+import banka.Banka;
+
+public class NewTestBanka {
+
+	@Test
+
+	public void OtvaranjeNaloga() {
+
+		Banka b = new Banka();
+
+		Account[] racuni = new Account[5];
+		for (int i = 0; i < racuni.length; i++) {
+			racuni[i] = b.openAccount("katarina");
+
+		}
+
+		String r = racuni[0].getNumber();
+
+		SoftAssert sa = new SoftAssert();
+
+		sa.assertEquals(b.getAccount(r).getName(), "katarina");
+
+		sa.assertAll();
+	}
+
+	@Test
+
+	public void UplataNovca() {
+
+		Banka b = new Banka();
+
+		Account racun = b.openAccount("kaca");
+		racun.setAmount(300d);
+
+		String r = racun.getNumber();
+		b.payInMoney(r, 500d);
+
+		SoftAssert sa = new SoftAssert();
+
+		sa.assertEquals(racun.getAmount(), 800d);
+		sa.assertAll();
+
+	}
+
+	@Test
+
+	public void UkupnoNovca() {
+
+		Banka b = new Banka();
+
+		ArrayList<Account> racuni = new ArrayList<Account>();
+		b.setAccounts(racuni);
+		Account racun1 = new Account("kaca");
+
+		racun1.setAmount(300d);
+		racuni.add(racun1);
+
+		Account racun2 = new Account("pera");
+
+		racun2.setAmount(400d);
+		racuni.add(racun2);
+
+		SoftAssert sa = new SoftAssert();
+
+		sa.assertEquals(b.getSumMoney(), 700d);
+
+		sa.assertAll();
+	}
+
+}

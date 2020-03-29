@@ -1,0 +1,26 @@
+package domaciTestNG;
+
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class TestNG_plus_Selenium {
+	@Test
+
+	public void TestiranjeTitle() {
+
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		
+		WebDriver wd = new ChromeDriver();
+		wd.get("https://youtube.com/");
+
+		String tekst = wd.getTitle();
+		String sajt = "YouTube";
+
+		Assert.assertEquals(tekst, sajt);
+
+	}
+
+}

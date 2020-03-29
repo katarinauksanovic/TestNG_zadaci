@@ -1,0 +1,79 @@
+package DomaciBugReport;
+
+
+import java.util.ArrayList;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import banka.Account;
+
+public class NewTestAccount {
+	@Test
+
+	public void TestGetMetoda() {
+
+		String ime = "katarina";
+
+		Account n = new Account(ime);
+		
+		Assert.assertEquals(n.getName(), "katarina");
+
+	}
+
+	@Test
+
+	public void TestSetMetoda() {
+		String ime = "katarina";
+		String broj = "17";
+
+		Account n = new Account(ime, broj);
+
+		n.setAmount(3000d);
+		
+
+		SoftAssert sa = new SoftAssert();
+
+		sa.assertEquals(n.getAmount(), 3000d);
+		
+		sa.assertAll();
+
+	}
+
+	@Test
+	public void TestiranjeStringa() {
+
+		String ime = "katarina";
+		String broj = "17";
+		double suma = 1d;
+		Account n = new Account(ime, broj);
+
+		SoftAssert sa = new SoftAssert();
+
+		sa.assertEquals(n.toString(),"17	katarina	1.00");
+
+		
+		sa.assertAll();
+	}
+	
+	  @Test
+			public void TestiranjeRacuna() {
+				Account niz[] = new Account[100];
+				for (int i = 0; i < niz.length; i++) {
+					niz[i] = new Account("katarina");
+				}
+
+				SoftAssert sa = new SoftAssert();
+
+				for (int i = 0; i < niz.length; i++) {
+					String promenljiva = niz[i].getNumber();
+					for (int j = i + 1; j < niz.length; j++) {
+						sa.assertNotEquals(promenljiva, niz[j].getNumber());
+					}
+				}
+
+				sa.assertAll();
+
+			}		
+}
